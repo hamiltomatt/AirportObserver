@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ARC {
     
-    ArrayList<Subscriber> Subscribers;
+    private ArrayList<Subscriber> Subscribers;
 
     public ARC() 
     {
@@ -37,4 +37,5 @@ public class ARC {
             s.update(p);
         }
     }
+ 
 }
