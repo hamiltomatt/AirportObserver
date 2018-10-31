@@ -9,18 +9,39 @@ package arcobserver;
  *
  * @author v8269590
  */
-public abstract class Bay implements Subscriber {
+public abstract class Bay implements PlaneWatcher {
     
-    private String location;
-    private Plane plane;
-    private final ARC airport;
+    public String location;
+    public Plane plane;
+    public final ARC airport;
     
-    Bay(ARC a)
+    Bay(ARC a, String l)
     {
         airport = a;
+        location = l;
     }
 
     @Override
     public abstract void update(Plane p);
+    
+    public boolean acceptPlane(Plane p)
+    {
+        if(plane == null)
+        {
+            plane = p;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean dismissPlane(Plane p)
+    {
+        if(plane != null)
+        {
+            plane = null;
+            return true;
+        }
+        return false;
+    }
     
 }

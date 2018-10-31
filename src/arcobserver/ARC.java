@@ -13,29 +13,82 @@ import java.util.ArrayList;
  */
 public class ARC {
     
-    private ArrayList<Subscriber> Subscribers;
+    private ArrayList<Plane> Planes;
+    private ArrayList<PlaneWatcher> PlaneWatchers;
 
     public ARC() 
     {
-        this.Subscribers = new ArrayList<>();
+        this.Planes = new ArrayList<>();
+        this.PlaneWatchers = new ArrayList<>();
     }
     
-    public void subscribe(Subscriber s)
+    /**
+     * Adds instance of PlaneWatcher to stored list.
+     * @param pW PlaneWatcher instance to add
+     * @return If object is now contained in the list
+     */
+    public boolean addPlaneWatcher(PlaneWatcher pW)
     {
-        Subscribers.add(s);
+        PlaneWatchers.add(pW);
+        return PlaneWatchers.contains(pW);
     }
     
-    public void unsubscribe(Subscriber s)
+    /**
+     * Removes instance of PlaneWatcher from stored list.
+     * @param pW PlaneWatcher instance to be removed
+     * @return If removing was successful
+     */
+    public boolean removePlaneWatcher(PlaneWatcher pW)
     {
-        Subscribers.remove(s);
+        if(PlaneWatchers.contains(pW))
+        {
+            PlaneWatchers.remove(pW);
+            return !PlaneWatchers.contains(pW);
+        }
+        return false;
     }
     
+    /**
+     * Notify each PlaneWatcher instance of new planes arriving.
+     * @param p Plane to be notified of.
+     */
     public void notifyOfPlane(Plane p)
     {
-        for(Subscriber s : Subscribers)
+        for(PlaneWatcher s : PlaneWatchers)
         {
             s.update(p);
         }
+    }
+    
+    /**
+     * Called when plane object notifies airport of landing.
+     * @param p Plane which has just landed.
+     * @return If plane has successfully been processed through the system.
+     */
+    public boolean planeLanded(Plane p)
+    {
+        if(!Planes.contains(p))
+        {
+            Planes.add(p);
+            notifyOfPlane(p);
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Called when plane object notifies airport of takeoff.
+     * @param p Plane taking off from airport.
+     * @return If plane has successfully been removed from the system.
+     */
+    public boolean planeTakeoff(Plane p)
+    {
+        if(Planes.contains(p))
+        {
+            Planes.remove(p);
+            return true;
+        }
+        return false;
     }
  
 }

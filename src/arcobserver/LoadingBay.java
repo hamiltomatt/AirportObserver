@@ -11,15 +11,18 @@ package arcobserver;
  */
 public class LoadingBay extends Bay {
     
-    LoadingBay(ARC a)
+    LoadingBay(ARC a, String l)
     {
-        super(a);
+        super(a, l);
     }
 
     @Override
     public void update(Plane p) 
     {
-        
+        if(plane == null)
+        {
+            
+        }
     }
     
     public void getFuel()

@@ -11,15 +11,18 @@ package arcobserver;
  */
 public class ParkingBay extends Bay {
     
-    ParkingBay(ARC a)
+    ParkingBay(ARC a, String l)
     {
-        super(a);
+        super(a, l);
     }
     
     @Override
     public void update(Plane p) 
     {
-        
+        if(plane == null)
+        {
+            
+        }
     }
     
     public void getCleaning()

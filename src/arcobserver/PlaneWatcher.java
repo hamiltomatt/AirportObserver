@@ -9,6 +9,6 @@ package arcobserver;
  *
  * @author v8269590
  */
-public interface Subscriber {
+public interface PlaneWatcher {
     void update(Plane p);
 }
