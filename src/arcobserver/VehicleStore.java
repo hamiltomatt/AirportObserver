@@ -10,7 +10,7 @@ package arcobserver;
  * @author v8269590
  */
 public class VehicleStore extends Location {
-    
+        
     public VehicleStore(String l) 
     {
         super(l);

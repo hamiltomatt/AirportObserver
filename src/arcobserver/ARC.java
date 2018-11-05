@@ -15,6 +15,7 @@ public class ARC {
 
     private final ArrayList<Plane> Planes;
     private final ArrayList<PlaneWatcher> PlaneWatchers;
+    private final ArrayList<Vehicle> Vehicles;
 
     /**
      * Constructor initialises lists for stored planes and objects watching for
@@ -24,6 +25,7 @@ public class ARC {
     {
         this.Planes = new ArrayList<>();
         this.PlaneWatchers = new ArrayList<>();
+        this.Vehicles = new ArrayList<>();
     }
     
     /**
@@ -33,8 +35,12 @@ public class ARC {
      */
     public boolean addPlaneWatcher(PlaneWatcher pW)
     {
-        PlaneWatchers.add(pW);
-        return PlaneWatchers.contains(pW);
+        if(!PlaneWatchers.contains(pW))
+        {
+            PlaneWatchers.add(pW);
+            return PlaneWatchers.contains(pW);
+        }
+        return false;
     }
     
     /**
@@ -53,6 +59,36 @@ public class ARC {
     }
     
     /**
+     * Adds instance of Vehicle to stored list.
+     * @param v Vehicle instance to be added
+     * @return If adding was successful
+     */
+    public boolean addVehicle(Vehicle v)
+    {
+        if(!Vehicles.contains(v))
+        {
+            Vehicles.add(v);
+            return Vehicles.contains(v);
+        }
+        return false;
+    }
+    
+    /**
+     * Removes instance of Vehicle from stored list
+     * @param v Vehicle instance to be removed
+     * @return If removing was successful
+     */
+    public boolean removeVehicle(Vehicle v)
+    {
+        if(Vehicles.contains(v))
+        {
+            Vehicles.remove(v);
+            return !Vehicles.contains(v);
+        }
+        return false;
+    }
+    
+    /**
      * Notify each PlaneWatcher instance of new planes arriving.
      * @param p Plane to be notified of.
      */
@@ -61,6 +97,21 @@ public class ARC {
         for(PlaneWatcher s : PlaneWatchers)
         {
             s.update(p);
+        }
+    }
+    
+    /**
+     * Calls vehicles needed for plane from store to bay
+     * @param b Bay calling vehicles
+     */
+    public void callVehicles(Bay b)
+    {
+        for(Vehicle v : Vehicles)
+        {
+            if(v.isAvailable)
+            {
+                
+            }
         }
     }
     
