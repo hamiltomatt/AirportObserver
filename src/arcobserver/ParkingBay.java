@@ -11,11 +11,20 @@ package arcobserver;
  */
 public class ParkingBay extends Bay {
     
+    /**
+     * Constructor that takes the airport system and the location of bay
+     * @param a Airport that bay is connected to
+     * @param l Location string sent to superclass Location
+     */
     ParkingBay(ARC a, String l)
     {
         super(a, l);
     }
     
+    /**
+     * Action undertaken when plane lands
+     * @param p Plane landing
+     */
     @Override
     public void update(Plane p) 
     {
@@ -27,12 +36,12 @@ public class ParkingBay extends Bay {
     
     public void getCleaning()
     {
-        
+        System.out.println("cleaned");
     }
     
     public void getMaintenance()
     {
-        
+        System.out.println("maintained");
     }
     
 }

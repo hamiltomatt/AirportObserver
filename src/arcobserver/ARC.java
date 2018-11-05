@@ -12,10 +12,14 @@ import java.util.ArrayList;
  * @author v8269590
  */
 public class ARC {
-    
-    private ArrayList<Plane> Planes;
-    private ArrayList<PlaneWatcher> PlaneWatchers;
 
+    private final ArrayList<Plane> Planes;
+    private final ArrayList<PlaneWatcher> PlaneWatchers;
+
+    /**
+     * Constructor initialises lists for stored planes and objects watching for
+     * planes landing.
+     */
     public ARC() 
     {
         this.Planes = new ArrayList<>();
