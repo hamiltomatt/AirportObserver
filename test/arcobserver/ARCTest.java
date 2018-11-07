@@ -27,9 +27,13 @@ public class ARCTest {
     @Test
     public void testAddPlaneWatcher()
     {
-        final ARC a = new ARC();
-        assertTrue(a.addPlaneWatcher(new ParkingBay(a, "W4")));
-        assertTrue(a.addPlaneWatcher(new LoadingBay(a, "N3")));
+        final ARC a = ARC.getAirportControl();
+        ParkingBay pb = new ParkingBay(a, "W4");
+        LoadingBay lb = new LoadingBay(a, "N3");
+        assertTrue(a.removePlaneWatcher(pb));
+        assertTrue(a.addPlaneWatcher(pb));
+        assertTrue(a.removePlaneWatcher(lb));
+        assertTrue(a.addPlaneWatcher(lb));
     }
     
     /**
@@ -39,21 +43,21 @@ public class ARCTest {
     @Test
     public void testRemovePlaneWatcher()
     {
-        final ARC a = new ARC();
+        final ARC a = ARC.getAirportControl();
         final ParkingBay pb = new ParkingBay(a, "W4");
-        assertTrue(a.addPlaneWatcher(pb));
         assertTrue(a.removePlaneWatcher(pb));       
     }
     
     /**
-     * Test of removePlaneWatcher method, of class ARC. Watcher was not added,
+     * Test of removePlaneWatcher method, of class ARC. Watcher was removed,
      * so operation should fail.
      */
     @Test
     public void testRemovePlaneWatcherInvalid()
     {
-        final ARC a = new ARC();
+        final ARC a = ARC.getAirportControl();
         final ParkingBay pb = new ParkingBay(a, "W4");
+        a.removePlaneWatcher(pb);
         assertFalse(a.removePlaneWatcher(pb));
     }
     

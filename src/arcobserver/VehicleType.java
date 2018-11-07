@@ -9,13 +9,6 @@ package arcobserver;
  *
  * @author v8269590
  */
-public class Location {
-    
-    protected String location;
-    
-    Location(String l)
-    {
-        location = l;
-    }
-    
+public enum VehicleType {
+    CATERING, CLEANING, FUEL, MAINTENANCE, RAMP
 }

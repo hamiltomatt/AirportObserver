@@ -23,6 +23,7 @@ public abstract class Bay extends Location implements PlaneWatcher {
     {
         super(l);
         airport = a;
+        airport.addPlaneWatcher(this);
     }
 
     /**
@@ -31,6 +32,22 @@ public abstract class Bay extends Location implements PlaneWatcher {
      */
     @Override
     public abstract void update(Plane p);
+    
+    /**
+     * Add bay back to airport if back to operation.
+     */
+    public void addBay()
+    {
+        airport.addPlaneWatcher(this);
+    }
+    
+    /**
+     * Remove bay if not currently in operation.
+     */
+    public void removeBay()
+    {
+        airport.removePlaneWatcher(this);
+    }
     
     /**
      * If plane meets requirements, accept plane into bay

@@ -13,19 +13,38 @@ import java.util.ArrayList;
  */
 public class ARC {
 
+    private static ARC airport;
     private final ArrayList<Plane> Planes;
     private final ArrayList<PlaneWatcher> PlaneWatchers;
     private final ArrayList<Vehicle> Vehicles;
+    private final ArrayList<Bay> SuitableBays;
 
     /**
-     * Constructor initialises lists for stored planes and objects watching for
-     * planes landing.
+     * Private constructor initialises lists for stored planes, objects 
+     * watching for planes landing, vehicles and currently suitable bays.
      */
-    public ARC() 
+    private ARC() 
     {
         this.Planes = new ArrayList<>();
         this.PlaneWatchers = new ArrayList<>();
         this.Vehicles = new ArrayList<>();
+        this.SuitableBays = new ArrayList<>();
+    }
+    
+    /**
+     * Public static method which returns the ARC of the airport. If it doesn't
+     * exist, it returns it, and if it hasn't, it creates a new one to return.
+     * This is using the Singleton method to make sure only one airport is
+     * ever existing in the system at one time.
+     * @return ARC class
+     */
+    public static ARC getAirportControl()
+    {
+        if(airport == null)
+        {
+            airport = new ARC();
+        }
+        return airport;
     }
     
     /**
@@ -74,7 +93,7 @@ public class ARC {
     }
     
     /**
-     * Removes instance of Vehicle from stored list
+     * Removes instance of Vehicle from stored list.
      * @param v Vehicle instance to be removed
      * @return If removing was successful
      */
@@ -89,10 +108,45 @@ public class ARC {
     }
     
     /**
-     * Notify each PlaneWatcher instance of new planes arriving.
+     * When a bay sees that a currently landing plane is suitable for itself,
+     * it calls this method to be added to the currently suitable bays.
+     * @param b Bay free to take plane
+     * @return If operation was successful
+     */
+    public boolean isSuitableBay(Bay b)
+    {
+        if(!SuitableBays.contains(b))
+        {
+            SuitableBays.add(b);
+            return !SuitableBays.contains(b);
+        }
+        return false;
+    }
+    
+    /**
+     * Method to find most suitable bay out of current list of suited bays for
+     * a currently landing plane.
+     * @param p Plane to find bay for
+     * @return Most suitable bay for the currently landing plane
+     */
+    private Bay findMostSuitableBay(Plane p)
+    {
+        Bay mostSuitableBay = null;
+        
+        for(Bay b : SuitableBays)
+        {
+            
+        }
+        return mostSuitableBay;
+    }
+    
+    /**
+     * Notify each PlaneWatcher instance of new planes arriving. This is using
+     * the Observer method to tell all objects implementing the PlaneWatcher
+     * interface of the newly landing plane.
      * @param p Plane to be notified of.
      */
-    public void notifyOfPlane(Plane p)
+    private void notifyOfPlane(Plane p)
     {
         for(PlaneWatcher s : PlaneWatchers)
         {
@@ -101,16 +155,70 @@ public class ARC {
     }
     
     /**
-     * Calls vehicles needed for plane from store to bay
+     * Calls vehicles needed for plane from store to bay.
      * @param b Bay calling vehicles
+     * @param vT Type of vehicle needed for job
      */
-    public void callVehicles(Bay b)
+    public void callVehicles(Bay b, VehicleType vT)
     {
+        int vehicleCount = 0;
         for(Vehicle v : Vehicles)
         {
             if(v.isAvailable)
             {
-                
+                switch(vT)
+                {
+                    case MAINTENANCE:
+                        if(v.getClass().getName().equals("MaintenanceVehicle"))
+                        {
+                            if(vehicleCount > 5)
+                            {
+                                v.driveTo(b);
+                                vehicleCount++;
+                            }
+                        }
+                        break;
+                    case CLEANING:
+                        if(v.getClass().getName().equals("CleaningVehicle"))
+                        {
+                            if(vehicleCount > 3)
+                            {
+                                v.driveTo(b);
+                                vehicleCount++;
+                            }
+                        }
+                        break;
+                    case FUEL:
+                        if(v.getClass().getName().equals("FuelVehicle"))
+                        {
+                            if(vehicleCount > 5)
+                            {
+                                v.driveTo(b);
+                                vehicleCount++;
+                            }
+                        }
+                        break;
+                    case RAMP:
+                        if(v.getClass().getName().equals("RampVehicle"))
+                        {
+                            if(vehicleCount >= 1)
+                            {
+                                v.driveTo(b);
+                                vehicleCount++;
+                            }
+                        }
+                        break;
+                    case CATERING:
+                        if(v.getClass().getName().equals("CateringVehicle"))
+                        {
+                            if(vehicleCount > 3)
+                            {
+                                v.driveTo(b);
+                                vehicleCount++;
+                            }
+                        }
+                        break;
+                }
             }
         }
     }
@@ -124,8 +232,12 @@ public class ARC {
     {
         if(!Planes.contains(p))
         {
+            SuitableBays.clear();
             Planes.add(p);
             notifyOfPlane(p);
+            
+            Bay currentBay = findMostSuitableBay(p);
+            currentBay.acceptPlane(p);
             return true;
         }
         return false;
@@ -139,9 +251,9 @@ public class ARC {
     public boolean planeTakeoff(Plane p)
     {
         if(Planes.contains(p))
-        {
+        {            
             Planes.remove(p);
-            return true;
+            return !Planes.contains(p);
         }
         return false;
     }

@@ -30,23 +30,32 @@ public class LoadingBay extends Bay {
     {
         if(plane == null)
         {
-            
+            airport.isSuitableBay(this);
         }
     }
     
+    /**
+     * Method that can call vehicles that can refuel the plane.
+     */
     public void getFuel()
     {
-        System.out.println("refueled");
+        airport.callVehicles(this, VehicleType.FUEL);
     }
     
+    /**
+     * Method that can call vehicles that can provide catering for the plane.
+     */
     public void getCatering()
     {
-        System.out.println("catered");
+        airport.callVehicles(this, VehicleType.CATERING);
     }
     
+    /**
+     * Method that can call vehicles that can provide ramp for the plane.
+     */
     public void getRamp()
     {
-        System.out.println("ramped");
+        airport.callVehicles(this, VehicleType.RAMP);
     }
     
 }

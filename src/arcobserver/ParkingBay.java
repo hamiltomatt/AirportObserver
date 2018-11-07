@@ -30,18 +30,24 @@ public class ParkingBay extends Bay {
     {
         if(plane == null)
         {
-            
+            airport.isSuitableBay(this);
         }
     }
     
+    /**
+     * Method to call vehicles that can clean a plane.
+     */
     public void getCleaning()
     {
-        System.out.println("cleaned");
+        airport.callVehicles(this, VehicleType.CLEANING);
     }
     
+    /**
+     * Method to call vehicles that can do maintenance on a plane.
+     */
     public void getMaintenance()
     {
-        System.out.println("maintained");
+        airport.callVehicles(this, VehicleType.MAINTENANCE);
     }
     
 }

@@ -11,6 +11,11 @@ package arcobserver;
  */
 public class RampVehicle extends Vehicle {
 
+    public RampVehicle(String l) 
+    {
+        super(l);
+    }
+
     @Override
     public boolean doJob(String l) {
         isAvailable = false;
