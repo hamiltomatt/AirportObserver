@@ -21,9 +21,11 @@ public abstract class Bay extends Location implements PlaneWatcher {
      * @param a Airport that bay is connected to
      * @param l Location string sent to superclass Location
      */
-    Bay(String l)
+    Bay(String l, int mL, int mW)
     {
         super(l);
+        maxLength = mL;
+        maxWingspan = mW;
         airport = ARC.getAirportControl();
         airport.addPlaneWatcher(this);
     }
@@ -75,6 +77,8 @@ public abstract class Bay extends Location implements PlaneWatcher {
         if(plane == null)
         {
             plane = p;
+            workOnPlane();
+            System.out.println("Plane processed through bays");
             return true;
         }
         return false;

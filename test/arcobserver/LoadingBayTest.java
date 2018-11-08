@@ -15,6 +15,20 @@ import static org.junit.Assert.*;
 public class LoadingBayTest {
     
     /**
+     * Data showing a refueled plane.
+     */
+    public static String fuelMessage = "FULL FUEL";
+    
+    /**
+     * Data showing a refilled catering system.
+     */
+    public static int cateringCount = 800;
+    
+    /**
+     * Data showing a delivered ramp.
+     */
+    public static String rampMessage = "DELIVERED";
+    /**
      * No-args constructor.
      */
     public LoadingBayTest() 
@@ -22,52 +36,61 @@ public class LoadingBayTest {
     }
 
     /**
-     * Test of update method, of class LoadingBay.
+     * Test of update method, of class LoadingBay. This tests to see if a plane
+     * that has no extra needs lands, at which point it will be
+     * ready to take off again.
      */
     @Test
     public void testUpdate() {
-        System.out.println("update");
-        Plane p = null;
-        LoadingBay instance = null;
-        instance.update(p);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final ARC a = ARC.getAirportControl();
+        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
+        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "CLEAN");
+        assertFalse(p.planeLanding(a));
     }
 
     /**
-     * Test of getFuel method, of class LoadingBay.
+     * Test of getFuel method, of class LoadingBay. This tests to see if a 
+     * plane that needs extra fuel can be seen by a subscribed loading bay,
+     * and fixed of the issue by being refueled.
      */
     @Test
     public void testGetFuel() {
-        System.out.println("getFuel");
-        LoadingBay instance = null;
-        instance.getFuel();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final ARC a = ARC.getAirportControl();
+        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
+        final FuelVehicle fV = new FuelVehicle("P4");
+        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "LOW", 500, "NOT READY", "CLEAN");
+        assertTrue(p.planeLanding(a));
+        assertEquals(fuelMessage, p.getFuelType());
     }
 
     /**
-     * Test of getCatering method, of class LoadingBay.
+     * Test of getCatering method, of class LoadingBay. This tests to see if a 
+     * plane that needs extra catering (food) can be seen by a subscribed 
+     * loading bay, and fixed of the issue by adding extra food.
      */
     @Test
     public void testGetCatering() {
-        System.out.println("getCatering");
-        LoadingBay instance = null;
-        instance.getCatering();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final ARC a = ARC.getAirportControl();
+        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
+        final CateringVehicle cV = new CateringVehicle("P4");
+        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 100, "NOT READY", "CLEAN");
+        assertTrue(p.planeLanding(a));
+        assertEquals(cateringCount, p.getFoodQuantity());
     }
 
     /**
-     * Test of getRamp method, of class LoadingBay.
+     * Test of getRamp method, of class LoadingBay. This tests to see if a 
+     * plane that needs ramps to load passengers/cargo can be seen by a 
+     * subscribed loading bay, and delivered to the plane.
      */
     @Test
     public void testGetRamp() {
-        System.out.println("getRamp");
-        LoadingBay instance = null;
-        instance.getRamp();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final ARC a = ARC.getAirportControl();
+        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
+        final RampVehicle rV = new RampVehicle("P4");
+        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "LOW", 500, "READY", "CLEAN");
+        assertTrue(p.planeLanding(a));
+        assertEquals(rampMessage, p.getRampType());
     }
     
 }

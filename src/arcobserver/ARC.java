@@ -57,7 +57,7 @@ public class ARC {
         if(!PlaneWatchers.contains(pW))
         {
             PlaneWatchers.add(pW);
-            System.out.println("Added " + pW.getClass().getSimpleName() + " from PlaneWatchers list");
+            System.out.println("Added " + pW.getClass().getSimpleName() + " to PlaneWatchers list");
             return PlaneWatchers.contains(pW);
         }
         return false;
@@ -89,7 +89,7 @@ public class ARC {
         if(!Vehicles.contains(v))
         {
             Vehicles.add(v);
-            System.out.println("Added " + v.getClass().getSimpleName() + " from Vehicles list");
+            System.out.println("Added " + v.getClass().getSimpleName() + " to Vehicles list");
             return Vehicles.contains(v);
         }
         return false;
@@ -122,7 +122,7 @@ public class ARC {
         if(!SuitableBays.contains(b))
         {
             SuitableBays.add(b);
-            System.out.println("Added " + b.getClass().getSimpleName() + " to Suitable Bay list");
+            System.out.println("Added " + b.getClass().getSimpleName() + " to suitable bay list");
             return SuitableBays.contains(b);
         }
         return false;
@@ -176,7 +176,7 @@ public class ARC {
         {
             return mostSuitableParkingBay;
         }
-        else if(p.getMaintenanceType().equals("FAULTY"))
+        else if((p.getMaintenanceType().equals("FAULTY")) || (p.getCleaningType().equals("DIRTY")))
         {
             return null;
         }

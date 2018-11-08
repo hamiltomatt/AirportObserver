@@ -15,9 +15,9 @@ public class LoadingBay extends Bay {
      * Constructor that takes the airport system and the location of bay
      * @param l Location string sent to superclass Location
      */
-    LoadingBay(String l)
+    LoadingBay(String l, int mL, int mW)
     {
-        super(l);
+        super(l, mL, mW);
     }
 
     /**

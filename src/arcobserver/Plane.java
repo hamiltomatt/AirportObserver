@@ -34,14 +34,14 @@ public class Plane {
         cleaningType = cT;
     }
     
-    public void planeLanding(ARC a)
+    public boolean planeLanding(ARC a)
     {
-        a.planeLanded(this);
+        return a.planeLanded(this);
     }
     
-    public void planeTakingOff(ARC a)
+    public boolean planeTakingOff(ARC a)
     {
-        a.planeTakeoff(this);
+        return a.planeTakeoff(this);
     }
     
     public String getModel() 

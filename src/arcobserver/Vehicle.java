@@ -54,6 +54,7 @@ public abstract class Vehicle extends Location {
     public boolean assignVehicleToJob(Bay l)
     {
         isAvailable = false;
+        System.out.println("Vehicle " + this.getClass().getSimpleName() + " is assigned to job at: " + l.getLocation());
         if(driveTo(l))
         {
             doJob(l);
@@ -100,8 +101,9 @@ public abstract class Vehicle extends Location {
     /**
      * Abstract method fulfilled by subclasses which performs job unique to
      * vehicle 
+     * @param b Send bay where job is taking place
      */
-    protected abstract void doJob(Bay b);
+    public abstract void doJob(Bay b);
     
     /**
      * Abstract method to ask a vehicle if it can do a particular job.

@@ -27,12 +27,10 @@ public class ParkingBayTest {
     @Test
     public void testUpdate() 
     {
-        System.out.println("update");
-        Plane p = null;
-        ParkingBay instance = null;
-        instance.update(p);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final ARC a = ARC.getAirportControl();
+        final ParkingBay pb = new ParkingBay("W4", 9000, 9000);
+        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "CLEAN");
+        assertFalse(p.planeLanding(a));
     }
 
     /**
@@ -41,11 +39,10 @@ public class ParkingBayTest {
     @Test
     public void testGetCleaning() 
     {
-        System.out.println("getCleaning");
-        ParkingBay instance = null;
-        instance.getCleaning();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final ARC a = ARC.getAirportControl();
+        final ParkingBay pb = new ParkingBay("W4", 9000, 9000);
+        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "DIRTY");
+        assertTrue(p.planeLanding(a));
     }
 
     /**
@@ -54,11 +51,10 @@ public class ParkingBayTest {
     @Test
     public void testGetMaintenance() 
     {
-        System.out.println("getMaintenance");
-        ParkingBay instance = null;
-        instance.getMaintenance();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final ARC a = ARC.getAirportControl();
+        final ParkingBay pb = new ParkingBay("W4", 9000, 9000);
+        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "FAULTY", "FULL FUEL", 500, "NOT READY", "CLEAN");
+        assertTrue(p.planeLanding(a));
     }
     
 }

@@ -16,9 +16,9 @@ public class ParkingBay extends Bay {
      * @param a Airport that bay is connected to
      * @param l Location string sent to superclass Location
      */
-    ParkingBay(String l)
+    ParkingBay(String l, int mL, int mW)
     {
-        super(l);
+        super(l, mL, mW);
     }
     
     /**
@@ -44,6 +44,7 @@ public class ParkingBay extends Bay {
     /**
      * When a plane is added to the bay, complete jobs plane needs doing.
      */
+    @Override
     public void workOnPlane()
     {
         if(getPlane().getCleaningType().equals("DIRTY"))

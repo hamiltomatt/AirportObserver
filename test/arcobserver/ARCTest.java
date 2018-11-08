@@ -28,8 +28,8 @@ public class ARCTest {
     public void testAddPlaneWatcher()
     {
         final ARC a = ARC.getAirportControl();
-        ParkingBay pb = new ParkingBay("W4");
-        LoadingBay lb = new LoadingBay("N3");
+        ParkingBay pb = new ParkingBay("W4", 9000, 4000);
+        LoadingBay lb = new LoadingBay("N3", 9000, 4000);
         assertTrue(a.removePlaneWatcher(pb));
         assertTrue(a.addPlaneWatcher(pb));
         assertTrue(a.removePlaneWatcher(lb));
@@ -44,7 +44,7 @@ public class ARCTest {
     public void testAddPlaneWatcherInvalid()
     {
         final ARC a = ARC.getAirportControl();
-        ParkingBay pb = new ParkingBay("A2");
+        ParkingBay pb = new ParkingBay("A2", 9000, 4000);
         a.addPlaneWatcher(pb);
         assertFalse(a.addPlaneWatcher(pb));
     }
@@ -57,7 +57,7 @@ public class ARCTest {
     public void testRemovePlaneWatcher()
     {
         final ARC a = ARC.getAirportControl();
-        final ParkingBay pb = new ParkingBay("W4");
+        final ParkingBay pb = new ParkingBay("W4", 9000, 4000);
         assertTrue(a.removePlaneWatcher(pb));       
     }
     
@@ -69,7 +69,7 @@ public class ARCTest {
     public void testRemovePlaneWatcherInvalid()
     {
         final ARC a = ARC.getAirportControl();
-        final ParkingBay pb = new ParkingBay("W4");
+        final ParkingBay pb = new ParkingBay("W4", 9000, 4000);
         a.removePlaneWatcher(pb);
         assertFalse(a.removePlaneWatcher(pb));
     }
