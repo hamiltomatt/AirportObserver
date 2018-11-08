@@ -32,9 +32,9 @@ public class ARC {
     }
     
     /**
-     * Public static method which returns the ARC of the airport. If it doesn't
-     * exist, it returns it, and if it hasn't, it creates a new one to return.
-     * This is using the Singleton method to make sure only one airport is
+     * Public static method which returns the ARC of the airport. If it already
+     * exists, it returns it, and if it doesn't, it creates a new one to return.
+     * This is using the Singleton pattern to make sure only one airport is
      * ever existing in the system at one time.
      * @return ARC class
      */
@@ -57,6 +57,7 @@ public class ARC {
         if(!PlaneWatchers.contains(pW))
         {
             PlaneWatchers.add(pW);
+            System.out.println("Added " + pW.getClass().getSimpleName() + " from PlaneWatchers list");
             return PlaneWatchers.contains(pW);
         }
         return false;
@@ -72,6 +73,7 @@ public class ARC {
         if(PlaneWatchers.contains(pW))
         {
             PlaneWatchers.remove(pW);
+            System.out.println("Removed " + pW.getClass().getSimpleName() + " from PlaneWatchers list");
             return !PlaneWatchers.contains(pW);
         }
         return false;
@@ -87,6 +89,7 @@ public class ARC {
         if(!Vehicles.contains(v))
         {
             Vehicles.add(v);
+            System.out.println("Added " + v.getClass().getSimpleName() + " from Vehicles list");
             return Vehicles.contains(v);
         }
         return false;
@@ -102,6 +105,7 @@ public class ARC {
         if(Vehicles.contains(v))
         {
             Vehicles.remove(v);
+            System.out.println("Removed " + v.getClass().getSimpleName() + " from Vehicles list");
             return !Vehicles.contains(v);
         }
         return false;
@@ -118,35 +122,74 @@ public class ARC {
         if(!SuitableBays.contains(b))
         {
             SuitableBays.add(b);
-            return !SuitableBays.contains(b);
+            System.out.println("Added " + b.getClass().getSimpleName() + " to Suitable Bay list");
+            return SuitableBays.contains(b);
         }
         return false;
     }
-    
+
+    /**
+     * Return the list of currently suitable bays for a plane
+     * @return Get array list of suitable bays
+     */
+    public ArrayList<Bay> getSuitableBays() 
+    {
+        return SuitableBays;
+    }
+   
     /**
      * Method to find most suitable bay out of current list of suited bays for
      * a currently landing plane.
      * @param p Plane to find bay for
      * @return Most suitable bay for the currently landing plane
      */
-    private Bay findMostSuitableBay(Plane p)
+    public Bay findMostSuitableBay(Plane p)
     {
-        Bay mostSuitableBay = null;
+        Bay mostSuitableLoadingBay = null;
+        Bay mostSuitableParkingBay = null;
+        int minSizeDifference = 9999;
+        int sizeDifference = 0;
         
         for(Bay b : SuitableBays)
         {
-            
+            switch(b.getClass().getSimpleName())
+            {
+                case "ParkingBay":
+                    sizeDifference = (b.maxWingspan - p.getWingspan()) + (b.maxLength - p.getLength());
+                    if(sizeDifference < minSizeDifference)
+                    {
+                        minSizeDifference = sizeDifference;
+                        mostSuitableParkingBay = b;
+                    }
+                    break;
+                case "LoadingBay":
+                    sizeDifference = (b.maxWingspan - p.getWingspan()) + (b.maxLength - p.getLength());
+                    if(sizeDifference < minSizeDifference)
+                    {
+                        minSizeDifference = sizeDifference;
+                        mostSuitableLoadingBay = b;
+                    }
+                    break;
+            }
         }
-        return mostSuitableBay;
+        if(mostSuitableParkingBay != null)
+        {
+            return mostSuitableParkingBay;
+        }
+        else if(p.getMaintenanceType().equals("FAULTY"))
+        {
+            return null;
+        }
+        return mostSuitableLoadingBay;
     }
     
     /**
      * Notify each PlaneWatcher instance of new planes arriving. This is using
-     * the Observer method to tell all objects implementing the PlaneWatcher
+     * the Observer pattern to tell all objects implementing the PlaneWatcher
      * interface of the newly landing plane.
      * @param p Plane to be notified of.
      */
-    private void notifyOfPlane(Plane p)
+    public void notifyOfPlane(Plane p)
     {
         for(PlaneWatcher s : PlaneWatchers)
         {
@@ -161,65 +204,9 @@ public class ARC {
      */
     public void callVehicles(Bay b, VehicleType vT)
     {
-        int vehicleCount = 0;
         for(Vehicle v : Vehicles)
         {
-            if(v.isAvailable)
-            {
-                switch(vT)
-                {
-                    case MAINTENANCE:
-                        if(v.getClass().getName().equals("MaintenanceVehicle"))
-                        {
-                            if(vehicleCount > 5)
-                            {
-                                v.driveTo(b);
-                                vehicleCount++;
-                            }
-                        }
-                        break;
-                    case CLEANING:
-                        if(v.getClass().getName().equals("CleaningVehicle"))
-                        {
-                            if(vehicleCount > 3)
-                            {
-                                v.driveTo(b);
-                                vehicleCount++;
-                            }
-                        }
-                        break;
-                    case FUEL:
-                        if(v.getClass().getName().equals("FuelVehicle"))
-                        {
-                            if(vehicleCount > 5)
-                            {
-                                v.driveTo(b);
-                                vehicleCount++;
-                            }
-                        }
-                        break;
-                    case RAMP:
-                        if(v.getClass().getName().equals("RampVehicle"))
-                        {
-                            if(vehicleCount >= 1)
-                            {
-                                v.driveTo(b);
-                                vehicleCount++;
-                            }
-                        }
-                        break;
-                    case CATERING:
-                        if(v.getClass().getName().equals("CateringVehicle"))
-                        {
-                            if(vehicleCount > 3)
-                            {
-                                v.driveTo(b);
-                                vehicleCount++;
-                            }
-                        }
-                        break;
-                }
-            }
+            v.callVehicle(b, vT);
         }
     }
     
@@ -234,11 +221,16 @@ public class ARC {
         {
             SuitableBays.clear();
             Planes.add(p);
+            SuitableBays.clear();
             notifyOfPlane(p);
             
-            Bay currentBay = findMostSuitableBay(p);
-            currentBay.acceptPlane(p);
-            return true;
+            Bay newBay = findMostSuitableBay(p);
+            if(newBay != null)
+            {
+                newBay.acceptPlane(p);
+                return true;
+            }
+            System.out.println("System has not found any available bays");
         }
         return false;
     }

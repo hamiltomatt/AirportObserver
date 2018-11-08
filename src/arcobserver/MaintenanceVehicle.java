@@ -17,9 +17,22 @@ public class MaintenanceVehicle extends Vehicle {
     }
 
     @Override
-    public boolean doJob(String l) {
-        isAvailable = false;
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void doJob(Bay b) 
+    {
+        b.getPlane().setMaintenanceType("NO ISSUES");
+        System.out.println("Plane fixed");
+    }
+
+    @Override
+    public void callVehicle(Bay b, VehicleType vT) 
+    {
+        if(this.getIsAvailable())
+        {
+            if(vT.equals("MAINTENANCE"))
+            {
+                this.assignVehicleToJob(b);
+            }
+        }
     }
     
 }

@@ -11,18 +11,22 @@ package arcobserver;
  */
 public class Plane {
    
-    public String model;
-    public String id;
-    public String maintenanceType;
-    public String fuelType;
-    public int foodQuantity;
-    public String rampType;
-    public String cleaningType;
+    private final String model;
+    private final String id;
+    private final int wingspan;
+    private final int length;
+    private String maintenanceType;
+    private String fuelType;
+    private int foodQuantity;
+    private String rampType;
+    private String cleaningType;
     
-    Plane(String m, String i, String mT, String fT, int fQ, String rT, String cT)
+    Plane(String m, String i, int w, int l, String mT, String fT, int fQ, String rT, String cT)
     {
         model = m;
         id = i;
+        wingspan = w;
+        length = l;
         maintenanceType = mT;
         fuelType = fT;
         foodQuantity = fQ;
@@ -38,5 +42,75 @@ public class Plane {
     public void planeTakingOff(ARC a)
     {
         a.planeTakeoff(this);
+    }
+    
+    public String getModel() 
+    {
+        return model;
+    }
+
+    public String getId() 
+    {
+        return id;
+    }
+
+    public int getWingspan() 
+    {
+        return wingspan;
+    }
+
+    public int getLength() 
+    {
+        return length;
+    }
+
+    public String getMaintenanceType() 
+    {
+        return maintenanceType;
+    }
+
+    public void setMaintenanceType(String maintenanceType) 
+    {
+        this.maintenanceType = maintenanceType;
+    }
+
+    public String getFuelType() 
+    {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) 
+    {
+        this.fuelType = fuelType;
+    }
+
+    public int getFoodQuantity() 
+    {
+        return foodQuantity;
+    }
+
+    public void setFoodQuantity(int foodQuantity) 
+    {
+        this.foodQuantity = foodQuantity;
+    }
+
+    public String getRampType() 
+    {
+        return rampType;
+    }
+
+    public void setRampType(String rampType) 
+    {
+        this.rampType = rampType;
+    }
+
+    public String getCleaningType() 
+    {
+        return cleaningType;
+    }
+
+    public void setCleaningType(String cleaningType) 
+    {
+        this.cleaningType = cleaningType;
     }
 }

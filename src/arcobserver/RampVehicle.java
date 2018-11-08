@@ -17,9 +17,22 @@ public class RampVehicle extends Vehicle {
     }
 
     @Override
-    public boolean doJob(String l) {
-        isAvailable = false;
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void doJob(Bay b) 
+    {
+        b.getPlane().setRampType("DELIVERED");
+        System.out.println("Ramp successfully loaded passengers and cargo");
+    }
+
+    @Override
+    public void callVehicle(Bay b, VehicleType vT) 
+    {
+        if(this.getIsAvailable())
+        {
+            if(vT.equals("RAMP"))
+            {
+                this.assignVehicleToJob(b);
+            }
+        }
     }
     
 }

@@ -11,11 +11,21 @@ package arcobserver;
  */
 public class Location {
     
-    protected String location;
+    private String location;
     
     Location(String l)
     {
         location = l;
+    }
+    
+    public String getLocation()
+    {
+        return location;
+    }
+    
+    public void setLocation(String location)
+    {
+        this.location = location;
     }
     
 }

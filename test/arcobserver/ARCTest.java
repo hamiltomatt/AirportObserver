@@ -28,12 +28,25 @@ public class ARCTest {
     public void testAddPlaneWatcher()
     {
         final ARC a = ARC.getAirportControl();
-        ParkingBay pb = new ParkingBay(a, "W4");
-        LoadingBay lb = new LoadingBay(a, "N3");
+        ParkingBay pb = new ParkingBay("W4");
+        LoadingBay lb = new LoadingBay("N3");
         assertTrue(a.removePlaneWatcher(pb));
         assertTrue(a.addPlaneWatcher(pb));
         assertTrue(a.removePlaneWatcher(lb));
         assertTrue(a.addPlaneWatcher(lb));
+    }
+    
+    /**
+     * Test of addPlaneWatcher method, of class ARC. Watcher was already added,
+     * so operation should fail.
+     */
+    @Test
+    public void testAddPlaneWatcherInvalid()
+    {
+        final ARC a = ARC.getAirportControl();
+        ParkingBay pb = new ParkingBay("A2");
+        a.addPlaneWatcher(pb);
+        assertFalse(a.addPlaneWatcher(pb));
     }
     
     /**
@@ -44,7 +57,7 @@ public class ARCTest {
     public void testRemovePlaneWatcher()
     {
         final ARC a = ARC.getAirportControl();
-        final ParkingBay pb = new ParkingBay(a, "W4");
+        final ParkingBay pb = new ParkingBay("W4");
         assertTrue(a.removePlaneWatcher(pb));       
     }
     
@@ -56,9 +69,47 @@ public class ARCTest {
     public void testRemovePlaneWatcherInvalid()
     {
         final ARC a = ARC.getAirportControl();
-        final ParkingBay pb = new ParkingBay(a, "W4");
+        final ParkingBay pb = new ParkingBay("W4");
         a.removePlaneWatcher(pb);
         assertFalse(a.removePlaneWatcher(pb));
+    }
+    
+    /**
+     * Test of addVehicle method, of class ARC. Vehicle was added when created
+     * then removed and then re-added, so it should succeed.
+     */
+    @Test
+    public void testAddVehicle()
+    {
+        final ARC a = ARC.getAirportControl();
+        final MaintenanceVehicle mV = new MaintenanceVehicle("Q3");
+        a.removeVehicle(mV);
+        assertTrue(a.addVehicle(mV));
+    }
+    
+    /**
+     * Test of removeVehicle method, of class ARC. Vehicle is added when
+     * created then removed from ARC.
+     */
+    @Test
+    public void testRemoveVehicle()
+    {
+        final ARC a = ARC.getAirportControl();
+        final MaintenanceVehicle mV = new MaintenanceVehicle("Q3");
+        assertTrue(a.removeVehicle(mV));
+    }
+    
+    /**
+     * Test of removeVehicle method, of class ARC. Vehicle is added when 
+     * created, then removed, and then removed again, so operation should fail.
+     */
+    @Test
+    public void testRemoveVehicleInvalid()
+    {
+        final ARC a = ARC.getAirportControl();
+        final CateringVehicle cV = new CateringVehicle("L9");
+        a.removeVehicle(cV);
+        assertFalse(a.removeVehicle(cV));
     }
     
 }

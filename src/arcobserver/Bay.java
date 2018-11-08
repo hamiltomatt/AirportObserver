@@ -11,27 +11,34 @@ package arcobserver;
  */
 public abstract class Bay extends Location implements PlaneWatcher {
 
-    public Plane plane;
-    public final ARC airport;
+    protected final ARC airport;
+    private Plane plane;
+    public int maxLength;
+    public int maxWingspan;
     
     /**
      * Constructor takes the airport system and the location of bay
      * @param a Airport that bay is connected to
      * @param l Location string sent to superclass Location
      */
-    Bay(ARC a, String l)
+    Bay(String l)
     {
         super(l);
-        airport = a;
+        airport = ARC.getAirportControl();
         airport.addPlaneWatcher(this);
     }
 
     /**
-     * Action undertaken when plane lands
+     * Abstract method describing which action undertaken by bay when plane lands.
      * @param p Plane landing
      */
     @Override
     public abstract void update(Plane p);
+    
+    /**
+     * Abstract method describing actions undertaken when doing jobs on plane.
+     */
+    public abstract void workOnPlane();
     
     /**
      * Add bay back to airport if back to operation.
@@ -48,7 +55,16 @@ public abstract class Bay extends Location implements PlaneWatcher {
     {
         airport.removePlaneWatcher(this);
     }
-    
+
+    /**
+     * Get plane currently in bay.
+     * @return Plane in bay
+     */
+    public Plane getPlane() 
+    {
+        return plane;
+    }
+      
     /**
      * If plane meets requirements, accept plane into bay
      * @param p Plane to be accepted

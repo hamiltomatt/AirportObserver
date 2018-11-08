@@ -16,9 +16,9 @@ public class ParkingBay extends Bay {
      * @param a Airport that bay is connected to
      * @param l Location string sent to superclass Location
      */
-    ParkingBay(ARC a, String l)
+    ParkingBay(String l)
     {
-        super(a, l);
+        super(l);
     }
     
     /**
@@ -28,10 +28,37 @@ public class ParkingBay extends Bay {
     @Override
     public void update(Plane p) 
     {
-        if(plane == null)
+        if(getPlane() == null)
         {
-            airport.isSuitableBay(this);
+            if((maxLength >= p.getLength()) && (maxWingspan >= p.getWingspan()))
+            {
+                if((p.getCleaningType().equals("DIRTY")) || (p.getMaintenanceType().equals("FAULTY")))
+                {
+                    System.out.println("Found suitable parking bay");
+                    airport.isSuitableBay(this);
+                }
+            }
         }
+    }
+    
+    /**
+     * When a plane is added to the bay, complete jobs plane needs doing.
+     */
+    public void workOnPlane()
+    {
+        if(getPlane().getCleaningType().equals("DIRTY"))
+        {
+            getCleaning();
+        }
+        if(getPlane().getCleaningType().equals("FAULTY"))
+        {
+            getMaintenance();
+        }
+        airport.getSuitableBays().clear();
+        airport.notifyOfPlane(this.getPlane());
+        Bay newBay = airport.findMostSuitableBay(this.getPlane());
+        newBay.acceptPlane(this.getPlane());
+        this.dismissPlane(getPlane());
     }
     
     /**
