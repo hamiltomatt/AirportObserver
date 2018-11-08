@@ -43,6 +43,7 @@ public class LoadingBay extends Bay {
     /**
      * When a plane is added to the bay, complete jobs plane needs doing.
      */    
+    @Override
     public void workOnPlane()
     {
         if(this.getPlane().getFuelType().equals("LOW"))

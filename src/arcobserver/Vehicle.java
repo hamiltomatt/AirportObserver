@@ -23,9 +23,10 @@ public abstract class Vehicle extends Location {
     {
         super(l);
         airport = ARC.getAirportControl();
-        airport.addVehicle(this);
+        addVehicle();
         System.out.println("New " + this.getClass().getSimpleName() + " at: " + this.getLocation());
         driveToStore();
+        isAvailable = true;
     }
     
     /**

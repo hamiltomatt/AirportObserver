@@ -57,8 +57,7 @@ public class ParkingBay extends Bay {
         }
         airport.getSuitableBays().clear();
         airport.notifyOfPlane(this.getPlane());
-        Bay newBay = airport.findMostSuitableBay(this.getPlane());
-        newBay.acceptPlane(this.getPlane());
+        airport.findNewBay(this.getPlane());
         this.dismissPlane(getPlane());
     }
     

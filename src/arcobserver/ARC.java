@@ -148,7 +148,7 @@ public class ARC {
         Bay mostSuitableLoadingBay = null;
         Bay mostSuitableParkingBay = null;
         int minSizeDifference = 9999;
-        int sizeDifference = 0;
+        int sizeDifference;
         
         for(Bay b : SuitableBays)
         {
@@ -179,6 +179,11 @@ public class ARC {
         else if((p.getMaintenanceType().equals("FAULTY")) || (p.getCleaningType().equals("DIRTY")))
         {
             return null;
+        }
+        else if(mostSuitableLoadingBay == null)
+        {
+            System.out.println("No available bays");
+            return mostSuitableLoadingBay;
         }
         return mostSuitableLoadingBay;
     }
@@ -222,15 +227,19 @@ public class ARC {
             SuitableBays.clear();
             Planes.add(p);
             SuitableBays.clear();
-            notifyOfPlane(p);
-            
-            Bay newBay = findMostSuitableBay(p);
-            if(newBay != null)
-            {
-                newBay.acceptPlane(p);
-                return true;
-            }
-            System.out.println("System has not found any available bays");
+            notifyOfPlane(p);            
+            findNewBay(p);
+            System.out.println("A bay has not been found");
+        }
+        return false;
+    }
+    
+    public boolean findNewBay(Plane p)
+    {
+        Bay newBay = findMostSuitableBay(p);
+        if(newBay != null)
+        {
+            return newBay.acceptPlane(p);
         }
         return false;
     }

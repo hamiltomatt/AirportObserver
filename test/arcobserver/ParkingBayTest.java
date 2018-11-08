@@ -14,6 +14,9 @@ import static org.junit.Assert.*;
  */
 public class ParkingBayTest {
     
+    public static String expectedCleanedType = "CLEAN";
+    
+    public static String expectedMaintainedType = "NO ISSUES";
     /**
      * No-args constructor.
      */
@@ -43,6 +46,7 @@ public class ParkingBayTest {
         final ParkingBay pb = new ParkingBay("W4", 9000, 9000);
         final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "DIRTY");
         assertTrue(p.planeLanding(a));
+        assertEquals(expectedCleanedType, p.getCleaningType());
     }
 
     /**
@@ -55,6 +59,7 @@ public class ParkingBayTest {
         final ParkingBay pb = new ParkingBay("W4", 9000, 9000);
         final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "FAULTY", "FULL FUEL", 500, "NOT READY", "CLEAN");
         assertTrue(p.planeLanding(a));
+        assertEquals(expectedMaintainedType, p.getMaintenanceType());
     }
     
 }

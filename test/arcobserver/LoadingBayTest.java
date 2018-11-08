@@ -17,17 +17,17 @@ public class LoadingBayTest {
     /**
      * Data showing a refueled plane.
      */
-    public static String fuelMessage = "FULL FUEL";
+    public static String expectedFuelMessage = "FULL FUEL";
     
     /**
      * Data showing a refilled catering system.
      */
-    public static int cateringCount = 800;
+    public static int expectedCateringCount = 800;
     
     /**
      * Data showing a delivered ramp.
      */
-    public static String rampMessage = "DELIVERED";
+    public static String expectedRampMessage = "DELIVERED";
     /**
      * No-args constructor.
      */
@@ -60,7 +60,7 @@ public class LoadingBayTest {
         final FuelVehicle fV = new FuelVehicle("P4");
         final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "LOW", 500, "NOT READY", "CLEAN");
         assertTrue(p.planeLanding(a));
-        assertEquals(fuelMessage, p.getFuelType());
+        assertEquals(expectedFuelMessage, p.getFuelType());
     }
 
     /**
@@ -75,7 +75,7 @@ public class LoadingBayTest {
         final CateringVehicle cV = new CateringVehicle("P4");
         final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 100, "NOT READY", "CLEAN");
         assertTrue(p.planeLanding(a));
-        assertEquals(cateringCount, p.getFoodQuantity());
+        assertEquals(expectedCateringCount, p.getFoodQuantity());
     }
 
     /**
@@ -90,7 +90,7 @@ public class LoadingBayTest {
         final RampVehicle rV = new RampVehicle("P4");
         final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "LOW", 500, "READY", "CLEAN");
         assertTrue(p.planeLanding(a));
-        assertEquals(rampMessage, p.getRampType());
+        assertEquals(expectedRampMessage, p.getRampType());
     }
     
 }
