@@ -76,6 +76,7 @@ public class Plane {
      */
     public boolean planeLanding(ARC a)
     {
+        System.out.println("Plane id " + id + " now landing");
         return a.planeLanded(this);
     }
     
@@ -153,39 +154,63 @@ public class Plane {
     }
 
     /**
-     * 
-     * @param fuelType 
+     * Set fuel type needed for plane
+     * @param fuelType Type of fuel needed
      */
     public void setFuelType(String fuelType) 
     {
         this.fuelType = fuelType;
     }
 
+    /**
+     * Get food quantity of plane
+     * @return Food quantity
+     */
     public int getFoodQuantity() 
     {
         return foodQuantity;
     }
 
+    /**
+     * Set food quantity
+     * @param foodQuantity Number of food
+     */
     public void setFoodQuantity(int foodQuantity) 
     {
         this.foodQuantity = foodQuantity;
     }
 
+    /**
+     * Get type of ramp needed for plane
+     * @return Ramp needed
+     */
     public String getRampType() 
     {
         return rampType;
     }
 
+    /**
+     * Set ramp type of plane
+     * @param rampType Set ramp type needed
+     */
     public void setRampType(String rampType) 
     {
         this.rampType = rampType;
     }
 
+    /**
+     * Get cleaning needed for plane
+     * @return Cleaning type needed for plane
+     */
     public String getCleaningType() 
     {
         return cleaningType;
     }
 
+    /**
+     * Set cleaning needed for plane
+     * @param cleaningType New cleaning status
+     */
     public void setCleaningType(String cleaningType) 
     {
         this.cleaningType = cleaningType;

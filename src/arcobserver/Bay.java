@@ -86,9 +86,9 @@ public abstract class Bay extends Location implements PlaneWatcher {
     {
         if(plane == null)
         {
+            System.out.println("Plane " + p.getId()+ " has been accepted by " + this.getClass().getSimpleName() + " at " + this.getLocation());
             plane = p;
             workOnPlane();
-            System.out.println("Plane processed through " + this.getClass().getSimpleName() + " at: " + this.getLocation());
             return true;
         }
         return false;
@@ -103,7 +103,7 @@ public abstract class Bay extends Location implements PlaneWatcher {
     {
         if(plane != null)
         {
-            System.out.println("Plane dismissed");
+            System.out.println("Plane " + p.getId()+ " has been dismissed by " + this.getClass().getSimpleName() + " at " + this.getLocation());
             plane = null;
             return true;
         }

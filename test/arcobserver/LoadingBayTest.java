@@ -24,6 +24,7 @@ public class LoadingBayTest {
      * Expected rampType when a ramp has been delivered to the plane.
      */
     public static String expectedRampMessage = "DELIVERED";
+    
     /**
      * No-args constructor.
      */
@@ -85,7 +86,7 @@ public class LoadingBayTest {
         final LoadingBay lb = new LoadingBay("W4", 7000, 6000);
         final CateringVehicle cV = new CateringVehicle("P4");
         final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 100, "NOT READY", "CLEAN");
-        assertTrue(p.planeLanding(a));
+        p.planeLanding(a);
         assertEquals(expectedCateringCount, p.getFoodQuantity());
     }
     

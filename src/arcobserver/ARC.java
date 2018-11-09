@@ -212,7 +212,6 @@ public class ARC {
         else if(mostSuitableLoadingBay == null)
         {
             System.out.println("No available bays");
-            return mostSuitableLoadingBay;
         }
         return mostSuitableLoadingBay;
     }
@@ -301,7 +300,8 @@ public class ARC {
     public boolean planeTakeoff(Plane p)
     {
         if(Planes.contains(p))
-        {            
+        {
+            System.out.println("Plane " + p.getId() + " taking off");
             Planes.remove(p);
             return !Planes.contains(p);
         }

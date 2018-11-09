@@ -55,8 +55,7 @@ public class LoadingBay extends Bay {
         if(this.getPlane().getRampType().equals("READY"))
         {
             getRamp();
-        }
-        this.getPlane().planeTakingOff(airport);
+        } 
         this.dismissPlane(getPlane());
     }
     

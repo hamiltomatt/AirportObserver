@@ -29,12 +29,15 @@ public class ARCObserver {
         
         final Plane p1 = new Plane("Boeing 737", "c82h", 7000, 6000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "CLEAN");
         p1.planeLanding(airport);
+        p1.planeTakingOff(airport);
         
         final Plane p2 = new Plane("Boeing 737", "v54r", 7000, 6000, "FAULTY", "FULL FUEL", 500, "READY", "CLEAN");
         p2.planeLanding(airport);
+        p2.planeTakingOff(airport);
         
         final Plane p3 = new Plane("Boeing 737", "d34g", 4000, 3000, "NO ISSUES", "LOW", 500, "READY", "CLEAN");
         p3.planeLanding(airport);
+        p3.planeTakingOff(airport);
         
     }
     
