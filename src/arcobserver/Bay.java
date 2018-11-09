@@ -33,6 +33,7 @@ public abstract class Bay extends Location implements PlaneWatcher {
     Bay(String l, int mL, int mW)
     {
         super(l);
+        System.out.println("Bay created at " + l);
         maxLength = mL;
         maxWingspan = mW;
         airport = ARC.getAirportControl();
@@ -87,7 +88,7 @@ public abstract class Bay extends Location implements PlaneWatcher {
         {
             plane = p;
             workOnPlane();
-            System.out.println("Plane processed through bays");
+            System.out.println("Plane processed through " + this.getClass().getSimpleName() + " at: " + this.getLocation());
             return true;
         }
         return false;
@@ -102,6 +103,7 @@ public abstract class Bay extends Location implements PlaneWatcher {
     {
         if(plane != null)
         {
+            System.out.println("Plane dismissed");
             plane = null;
             return true;
         }

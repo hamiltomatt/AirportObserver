@@ -65,6 +65,7 @@ public class ParkingBay extends Bay {
      */
     public void getCleaning()
     {
+        System.out.println("Calling cleaning vehicles");
         airport.callVehicles(this, VehicleType.CLEANING);
     }
     
@@ -73,6 +74,7 @@ public class ParkingBay extends Bay {
      */
     public void getMaintenance()
     {
+        System.out.println("Calling maintenance vehicles");
         airport.callVehicles(this, VehicleType.MAINTENANCE);
     }
     

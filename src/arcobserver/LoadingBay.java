@@ -65,6 +65,7 @@ public class LoadingBay extends Bay {
      */
     public void getFuel()
     {
+        System.out.println("Calling fuel vehicles");
         airport.callVehicles(this, VehicleType.FUEL);
     }
     
@@ -73,6 +74,7 @@ public class LoadingBay extends Bay {
      */
     public void getCatering()
     {
+        System.out.println("Calling catering vehicles");
         airport.callVehicles(this, VehicleType.CATERING);
     }
     
@@ -81,6 +83,7 @@ public class LoadingBay extends Bay {
      */
     public void getRamp()
     {
+        System.out.println("Calling ramp vehicles");
         airport.callVehicles(this, VehicleType.RAMP);
     }
     
