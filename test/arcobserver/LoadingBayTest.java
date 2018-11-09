@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package arcobserver;
 
 import org.junit.Test;
@@ -10,22 +6,22 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author v8269590
+ * @author Matthew Hamilton
  */
 public class LoadingBayTest {
     
     /**
-     * Data showing a refueled plane.
+     * Expected fuelType when a plane has been refueled by fuel vehicleS.
      */
     public static String expectedFuelMessage = "FULL FUEL";
     
     /**
-     * Data showing a refilled catering system.
+     * Expected food quantity when a catering vehicle has refilled the plane.
      */
     public static int expectedCateringCount = 800;
     
     /**
-     * Data showing a delivered ramp.
+     * Expected rampType when a ramp has been delivered to the plane.
      */
     public static String expectedRampMessage = "DELIVERED";
     /**
@@ -41,11 +37,11 @@ public class LoadingBayTest {
      * ready to take off again.
      */
     @Test
-    public void testUpdate() {
+    public void testUpdateNoBaysValid() {
         final ARC a = ARC.getAirportControl();
         final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
-        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "CLEAN");
-        assertFalse(p.planeLanding(a));
+        final Plane p = new Plane("Boeing 737", "c82h", 7000, 6000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "CLEAN");
+        assertTrue(p.planeLanding(a));
     }
 
     /**
@@ -54,13 +50,28 @@ public class LoadingBayTest {
      * and fixed of the issue by being refueled.
      */
     @Test
-    public void testGetFuel() {
+    public void testGetFuelValid() {
         final ARC a = ARC.getAirportControl();
         final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
         final FuelVehicle fV = new FuelVehicle("P4");
-        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "LOW", 500, "NOT READY", "CLEAN");
+        final Plane p = new Plane("Boeing 737", "c82h", 7000, 6000, "NO ISSUES", "LOW", 500, "NOT READY", "CLEAN");
         assertTrue(p.planeLanding(a));
         assertEquals(expectedFuelMessage, p.getFuelType());
+    }
+    
+    /**
+     * Test of getFuel method, of class LoadingBay. This tests to see if a
+     * plane that has some fuel but enough for a journey is not delivered
+     * fuel by an available fuel vehicle.
+     */
+    @Test
+    public void testGetFuelInvalid() {
+        final ARC a = ARC.getAirportControl();
+        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
+        final FuelVehicle fV = new FuelVehicle("P4");
+        final Plane p = new Plane("Boeing 737", "c82h", 7000, 6000, "NO ISSUES", "SOME FUEL", 500, "NOT READY", "CLEAN");
+        assertTrue(p.planeLanding(a));
+        assertNotEquals(expectedFuelMessage, p.getFuelType());
     }
 
     /**
@@ -69,13 +80,28 @@ public class LoadingBayTest {
      * loading bay, and fixed of the issue by adding extra food.
      */
     @Test
-    public void testGetCatering() {
+    public void testGetCateringValid() {
         final ARC a = ARC.getAirportControl();
-        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
+        final LoadingBay lb = new LoadingBay("W4", 7000, 6000);
         final CateringVehicle cV = new CateringVehicle("P4");
         final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 100, "NOT READY", "CLEAN");
         assertTrue(p.planeLanding(a));
         assertEquals(expectedCateringCount, p.getFoodQuantity());
+    }
+    
+    /**
+     * Test of getCatering method, of class LoadingBay. This tests to see if a
+     * plane that doesn't need extra food can, even though a catering vehicle
+     * is available, will not deliver additional food.
+     */
+    @Test
+    public void testGetCateringInvalid() {
+        final ARC a = ARC.getAirportControl();
+        final LoadingBay lb = new LoadingBay("W4", 7000, 6000);
+        final CateringVehicle cV = new CateringVehicle("P4");
+        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "CLEAN");
+        assertTrue(p.planeLanding(a));
+        assertNotEquals(expectedCateringCount, p.getFoodQuantity());
     }
 
     /**
@@ -84,13 +110,28 @@ public class LoadingBayTest {
      * subscribed loading bay, and delivered to the plane.
      */
     @Test
-    public void testGetRamp() {
+    public void testGetRampValid() {
         final ARC a = ARC.getAirportControl();
-        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
+        final LoadingBay lb = new LoadingBay("W4", 7000, 6000);
         final RampVehicle rV = new RampVehicle("P4");
         final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "LOW", 500, "READY", "CLEAN");
         assertTrue(p.planeLanding(a));
         assertEquals(expectedRampMessage, p.getRampType());
+    }
+    
+    /**
+     * Test of getRamp method, of class LoadingBay. This tests to see if a
+     * plane that is waiting needs a ramp, which it doesn't, so a ramp isn't
+     * delivered and the test fails.
+     */
+    @Test
+    public void testGetRampInvalid() {
+        final ARC a = ARC.getAirportControl();
+        final LoadingBay lb = new LoadingBay("W4", 7000, 6000);
+        final RampVehicle rV = new RampVehicle("P4");
+        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "LOW", 500, "WAITING", "CLEAN");
+        assertTrue(p.planeLanding(a));
+        assertNotEquals(expectedRampMessage, p.getRampType());
     }
     
 }

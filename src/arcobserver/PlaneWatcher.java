@@ -1,14 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package arcobserver;
 
 /**
  *
- * @author v8269590
+ * @author Matthew Hamilton
  */
 public interface PlaneWatcher {
+    
+    /**
+     * Method which all classes implementing PlaneWatcher will implement,
+     * 
+     * @param p 
+     */
     void update(Plane p);
 }

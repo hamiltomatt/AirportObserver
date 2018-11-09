@@ -25,7 +25,7 @@ public class ARCTest {
      * Test of addPlaneWatcher method, of class ARC.
      */
     @Test
-    public void testAddPlaneWatcher()
+    public void testAddPlaneWatcherValid()
     {
         final ARC a = ARC.getAirportControl();
         ParkingBay pb = new ParkingBay("W4", 9000, 4000);
@@ -54,7 +54,7 @@ public class ARCTest {
      * then removed from ARC.
      */
     @Test
-    public void testRemovePlaneWatcher()
+    public void testRemovePlaneWatcherValid()
     {
         final ARC a = ARC.getAirportControl();
         final ParkingBay pb = new ParkingBay("W4", 9000, 4000);
@@ -79,7 +79,7 @@ public class ARCTest {
      * then removed and then re-added, so it should succeed.
      */
     @Test
-    public void testAddVehicle()
+    public void testAddVehicleValid()
     {
         final ARC a = ARC.getAirportControl();
         final MaintenanceVehicle mV = new MaintenanceVehicle("Q3");
@@ -92,7 +92,7 @@ public class ARCTest {
      * created then removed from ARC.
      */
     @Test
-    public void testRemoveVehicle()
+    public void testRemoveVehicleValid()
     {
         final ARC a = ARC.getAirportControl();
         final MaintenanceVehicle mV = new MaintenanceVehicle("Q3");

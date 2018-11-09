@@ -1,21 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package arcobserver;
 
 /**
  *
- * @author v8269590
+ * @author Matthew Hamilton
  */
 public class MaintenanceVehicle extends Vehicle {
 
+    /**
+     * Sends location to vehicle supertype
+     * @param l Vehicle location
+     */
     public MaintenanceVehicle(String l) 
     {
         super(l);
     }
 
+    /**
+     * Doing currently assigned maintenance job
+     * @param b Bay job is being performed at
+     */
     @Override
     public void doJob(Bay b) 
     {
@@ -23,12 +27,17 @@ public class MaintenanceVehicle extends Vehicle {
         System.out.println("Plane fixed");
     }
 
+    /**
+     * Calling vehicle for job, sees if suitable and if it is, it assigns job
+     * @param b Bay job is located at
+     * @param vT Type of vehicle needed for job
+     */
     @Override
     public void callVehicle(Bay b, VehicleType vT) 
     {
         if(this.getIsAvailable())
         {
-            if(vT.equals("MAINTENANCE"))
+            if(vT.equals(VehicleType.MAINTENANCE))
             {
                 this.assignVehicleToJob(b);
             }

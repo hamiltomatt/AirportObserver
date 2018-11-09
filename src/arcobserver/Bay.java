@@ -1,19 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package arcobserver;
 
 /**
  *
- * @author v8269590
+ * @author Matthew Hamilton
  */
 public abstract class Bay extends Location implements PlaneWatcher {
 
+    /**
+     * The bay's local reference to the airport class, which is initialised in
+     * the constructor through the airport's static getAirportControl method.
+     */
     protected final ARC airport;
+    /**
+     * The plane currently assigned to the bay, or null if bay is empty.
+     */
     private Plane plane;
+    /**
+     * The maximum length of plane the bay can hold.
+     */
     public int maxLength;
+    /**
+     * The maximum wingspan of plane the bay can hold.
+     */
     public int maxWingspan;
     
     /**

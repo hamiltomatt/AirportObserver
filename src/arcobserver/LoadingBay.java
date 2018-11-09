@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package arcobserver;
 
 /**
  *
- * @author v8269590
+ * @author Matthew Hamilton
  */
 public class LoadingBay extends Bay {
     
@@ -41,7 +37,9 @@ public class LoadingBay extends Bay {
     }
 
     /**
-     * When a plane is added to the bay, complete jobs plane needs doing.
+     * When a plane is added to the bay, this method complete jobs plane need 
+     * completing. These are the tasks the loading bay can complete, at
+     * which point it tells the plane it can take off and dismisses it.
      */    
     @Override
     public void workOnPlane()

@@ -1,22 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package arcobserver;
 
 import java.util.ArrayList;
 
 /**
  *
- * @author v8269590
+ * @author Matthew Hamilton
  */
 public class ARC {
 
+    /**
+     * The static instance of this class that will be accessed through the
+     * method getAirportControl through all classes.
+     */
     private static ARC airport;
+    /**
+     * The airport's list of all planes currently in bays at the airport.
+     */
     private final ArrayList<Plane> Planes;
+    /**
+     * The airport's list of all registered observers of planes that have
+     * landed.
+     */
     private final ArrayList<PlaneWatcher> PlaneWatchers;
+    /**
+     * The airport's registered list of vehicles.
+     */
     private final ArrayList<Vehicle> Vehicles;
+    /**
+     * The airport's list of suitable bays for a plane, which is collated when a
+     * bay sees it is suited to a currently landing plane, which calls
+     * isSuitableBay, which is then sorted through in the findMostSuitableBay 
+     * method, and then assigned to the bay.
+     */
     private final ArrayList<Bay> SuitableBays;
 
     /**
@@ -194,7 +210,7 @@ public class ARC {
      * interface of the newly landing plane.
      * @param p Plane to be notified of.
      */
-    public void notifyOfPlane(Plane p)
+    public void notifyOfPlaneLanding(Plane p)
     {
         for(PlaneWatcher s : PlaneWatchers)
         {
@@ -202,8 +218,21 @@ public class ARC {
         }
     }
     
+    public void notifyOfPlaneBayChange(Plane p)
+    {
+        for(PlaneWatcher s : PlaneWatchers)
+        {
+            String className = s.getClass().getSimpleName();
+            if((className.equals("ParkingBay")) || (className.equals("LoadingBay")))
+            {
+                s.update(p);
+            }
+        }
+    }
+    
     /**
-     * Calls vehicles needed for plane from store to bay.
+     * Calls vehicles needed for plane from store to bay. This utilises the
+     * observer pattern to call all available vehicles to a bay.
      * @param b Bay calling vehicles
      * @param vT Type of vehicle needed for job
      */
@@ -227,13 +256,19 @@ public class ARC {
             SuitableBays.clear();
             Planes.add(p);
             SuitableBays.clear();
-            notifyOfPlane(p);            
+            notifyOfPlaneLanding(p);            
             findNewBay(p);
-            System.out.println("A bay has not been found");
+            return true;
         }
         return false;
     }
     
+    /**
+     * Called when a bay needs to be assigned to a plane, such as when a plane
+     * lands or when a plane is done at a parking bay.
+     * @param p The plane needing to be assigned to a bay
+     * @return If plane has successfully been accepted into a bay
+     */
     public boolean findNewBay(Plane p)
     {
         Bay newBay = findMostSuitableBay(p);

@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package arcobserver;
 
 /**
  *
- * @author v8269590
+ * @author Matthew Hamilton
  */
 public class ParkingBay extends Bay {
     
@@ -42,8 +38,11 @@ public class ParkingBay extends Bay {
     }
     
     /**
-     * When a plane is added to the bay, complete jobs plane needs doing.
-     */
+     * When a plane is added to the bay, this method complete jobs plane need 
+     * completing. These are the tasks the parking bay can complete, at
+     * which point it tells the plane it can take now move to the loading
+     * bay to get ready for takeoff, and then dismisses the plane.
+     */ 
     @Override
     public void workOnPlane()
     {
@@ -51,12 +50,12 @@ public class ParkingBay extends Bay {
         {
             getCleaning();
         }
-        if(getPlane().getCleaningType().equals("FAULTY"))
+        if(getPlane().getMaintenanceType().equals("FAULTY"))
         {
             getMaintenance();
         }
         airport.getSuitableBays().clear();
-        airport.notifyOfPlane(this.getPlane());
+        airport.notifyOfPlaneBayChange(this.getPlane());
         airport.findNewBay(this.getPlane());
         this.dismissPlane(getPlane());
     }

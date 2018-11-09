@@ -1,17 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package arcobserver;
 
 /**
  *
- * @author v8269590
+ * @author Matthew Hamilton
  */
 public abstract class Vehicle extends Location {
     
+    /**
+     * Local reference to airport, initialised in constructor where ARC static
+     * method getAirportControl is called
+     */
     protected final ARC airport;
+    /**
+     * Boolean to show if a vehicle is available to be assigned to a job
+     */
     private boolean isAvailable;
     
     /**

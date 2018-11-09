@@ -1,20 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package arcobserver;
 
 import java.util.ArrayList;
 
 /**
  *
- * @author v8269590
+ * @author Matthew Hamilton
  */
 public class VehicleStore extends Location {
     
+    /**
+     * Local reference to airport, initialised in constructor where ARC static
+     * method getAirportControl is called
+     */
     private final ARC airport;
+    /**
+     * Static instance of VehicleStore, ensures only one vehicle store ever
+     * created on airport as per Singleton pattern
+     */
     private static VehicleStore vehicleStore;
+    /**
+     * ArrayList of vehicles stored currently in vehicle store
+     */
     private final ArrayList<Vehicle> vehiclesInStore;
     
     /**
