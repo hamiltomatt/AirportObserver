@@ -162,24 +162,17 @@ public class ARC {
     public Bay findMostSuitableBay(Plane p)
     {
         Bay mostSuitableBay = null;
-        Bay mostSuitableLoadingBay = null;
         Bay mostSuitableParkingBay = null;
         int minSizeDifference = 9999;
         int minSizeDifferencePB = 9999;
-        int minSizeDifferenceLB = 9999;
         int sizeDifference = 9999;
         
         for(Bay b : SuitableBays)
         {
+            sizeDifference = (b.maxWingspan - p.getWingspan()) + (b.maxLength - p.getLength());
             switch(b.getClass().getSimpleName())
             {
                 case "ParkingBay":
-                    sizeDifference = (b.maxWingspan - p.getWingspan()) + (b.maxLength - p.getLength());
-                    if(sizeDifference < minSizeDifference)
-                    {
-                        minSizeDifference = sizeDifference;
-                        mostSuitableBay = b;
-                    }
                     if(sizeDifference < minSizeDifferencePB)
                     {
                         minSizeDifferencePB = sizeDifference;
@@ -187,16 +180,10 @@ public class ARC {
                     }
                     break;
                 case "LoadingBay":
-                    sizeDifference = (b.maxWingspan - p.getWingspan()) + (b.maxLength - p.getLength());
                     if(sizeDifference < minSizeDifference)
                     {
                         minSizeDifference = sizeDifference;
                         mostSuitableBay = b;
-                    }
-                    if(sizeDifference < minSizeDifferenceLB)
-                    {
-                        minSizeDifferenceLB = sizeDifference;
-                        mostSuitableLoadingBay = b;
                     }
                     break;
             }
@@ -207,13 +194,13 @@ public class ARC {
         }
         else if((p.getMaintenanceType().equals("FAULTY")) || (p.getCleaningType().equals("DIRTY")))
         {
-            return null;
+            System.out.println("Needs parking bay before a takeoff, none are currently available");
         }
-        else if(mostSuitableLoadingBay == null)
+        else if(mostSuitableBay == null)
         {
-            System.out.println("No available bays");
+            System.out.println("No available bays at current time or no more bays needed");
         }
-        return mostSuitableLoadingBay;
+        return mostSuitableBay;
     }
     
     /**

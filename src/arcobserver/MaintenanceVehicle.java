@@ -8,7 +8,7 @@ package arcobserver;
 public class MaintenanceVehicle extends Vehicle {
 
     /**
-     * Sends location to vehicle supertype
+     * Sends location to vehicle super-type
      * @param l Vehicle location
      */
     public MaintenanceVehicle(String l) 

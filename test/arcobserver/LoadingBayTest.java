@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class LoadingBayTest {
     
     /**
-     * Expected fuelType when a plane has been refueled by fuel vehicleS.
+     * Expected fuelType when a plane has been refueled by fuel vehicles.
      */
     public static String expectedFuelMessage = "FULL FUEL";
     
@@ -83,9 +83,9 @@ public class LoadingBayTest {
     @Test
     public void testGetCateringValid() {
         final ARC a = ARC.getAirportControl();
-        final LoadingBay lb = new LoadingBay("W4", 7000, 6000);
+        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
         final CateringVehicle cV = new CateringVehicle("P4");
-        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 100, "NOT READY", "CLEAN");
+        final Plane p = new Plane("Boeing 737", "c82h", 7000, 6000, "NO ISSUES", "FULL FUEL", 100, "NOT READY", "CLEAN");
         p.planeLanding(a);
         assertEquals(expectedCateringCount, p.getFoodQuantity());
     }
@@ -98,9 +98,9 @@ public class LoadingBayTest {
     @Test
     public void testGetCateringInvalid() {
         final ARC a = ARC.getAirportControl();
-        final LoadingBay lb = new LoadingBay("W4", 7000, 6000);
+        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
         final CateringVehicle cV = new CateringVehicle("P4");
-        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "CLEAN");
+        final Plane p = new Plane("Boeing 737", "c82h", 7000, 6000, "NO ISSUES", "FULL FUEL", 500, "NOT READY", "CLEAN");
         assertTrue(p.planeLanding(a));
         assertNotEquals(expectedCateringCount, p.getFoodQuantity());
     }
@@ -113,9 +113,9 @@ public class LoadingBayTest {
     @Test
     public void testGetRampValid() {
         final ARC a = ARC.getAirportControl();
-        final LoadingBay lb = new LoadingBay("W4", 7000, 6000);
+        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
         final RampVehicle rV = new RampVehicle("P4");
-        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "LOW", 500, "READY", "CLEAN");
+        final Plane p = new Plane("Boeing 737", "c82h", 7000, 6000, "NO ISSUES", "LOW", 500, "READY", "CLEAN");
         assertTrue(p.planeLanding(a));
         assertEquals(expectedRampMessage, p.getRampType());
     }
@@ -128,9 +128,9 @@ public class LoadingBayTest {
     @Test
     public void testGetRampInvalid() {
         final ARC a = ARC.getAirportControl();
-        final LoadingBay lb = new LoadingBay("W4", 7000, 6000);
+        final LoadingBay lb = new LoadingBay("W4", 9000, 9000);
         final RampVehicle rV = new RampVehicle("P4");
-        final Plane p = new Plane("Boeing 737", "c82h", 4000, 9000, "NO ISSUES", "LOW", 500, "WAITING", "CLEAN");
+        final Plane p = new Plane("Boeing 737", "c82h", 7000, 6000, "NO ISSUES", "LOW", 500, "WAITING", "CLEAN");
         assertTrue(p.planeLanding(a));
         assertNotEquals(expectedRampMessage, p.getRampType());
     }

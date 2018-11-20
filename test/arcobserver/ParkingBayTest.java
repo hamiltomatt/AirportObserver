@@ -19,6 +19,7 @@ public class ParkingBayTest {
      * Expected maintenanceType when a plane has been fixed.
      */
     public static String expectedMaintainedType = "NO ISSUES";
+    
     /**
      * No-args constructor.
      */
