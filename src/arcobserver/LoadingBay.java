@@ -44,15 +44,15 @@ public class LoadingBay extends Bay {
     @Override
     public void workOnPlane()
     {
-        if(this.getPlane().getFuelType().equals("LOW"))
+        if(getPlane().getFuelType().equals("LOW"))
         {
             getFuel();
         }
-        if(this.getPlane().getFoodQuantity() < 500)
+        if(getPlane().getFoodQuantity() < 500)
         {
             getCatering();
         }
-        if(this.getPlane().getRampType().equals("READY"))
+        if(getPlane().getRampType().equals("READY"))
         {
             getRamp();
         } 

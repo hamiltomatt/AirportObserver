@@ -15,7 +15,7 @@ public abstract class Bay extends Location implements PlaneWatcher {
     /**
      * The plane currently assigned to the bay, or null if bay is empty.
      */
-    private Plane plane;
+    private Plane plane = null;
     /**
      * The maximum length of plane the bay can hold.
      */

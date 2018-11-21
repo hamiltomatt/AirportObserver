@@ -35,9 +35,9 @@ public class FuelVehicle extends Vehicle {
     @Override
     public void callVehicle(Bay b, VehicleType vT) 
     {
-        if(this.getIsAvailable())
+        if(vT.equals(VehicleType.FUEL))
         {
-            if(vT.equals(VehicleType.FUEL))
+            if(this.getIsAvailable())
             {
                 this.assignVehicleToJob(b);
             }

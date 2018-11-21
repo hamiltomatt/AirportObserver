@@ -54,10 +54,11 @@ public class ParkingBay extends Bay {
         {
             getMaintenance();
         }
+        Plane planeForNewBay = getPlane();
+        this.dismissPlane(planeForNewBay);
         airport.getSuitableBays().clear();
-        airport.notifyOfPlaneBayChange(this.getPlane());
-        airport.findNewBay(this.getPlane());
-        this.dismissPlane(getPlane());
+        airport.notifyOfPlaneBayChange(planeForNewBay);
+        airport.findNewBay(planeForNewBay);      
     }
     
     /**

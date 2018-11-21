@@ -55,13 +55,13 @@ public abstract class Vehicle extends Location {
      * @param l Location where job is located
      * @return If job was successful
      */
-    public boolean assignVehicleToJob(Bay l)
+    public boolean assignVehicleToJob(Bay b)
     {
         isAvailable = false;
-        System.out.println("Vehicle " + this.getClass().getSimpleName() + " is assigned to job at: " + l.getLocation());
-        if(driveTo(l))
+        System.out.println("Vehicle " + this.getClass().getSimpleName() + " is assigned to job at: " + b.getLocation());
+        if(driveTo(b))
         {
-            doJob(l);
+            doJob(b);
             if(driveToStore())
             {
                 isAvailable = true;

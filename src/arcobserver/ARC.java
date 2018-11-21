@@ -163,9 +163,9 @@ public class ARC {
     {
         Bay mostSuitableBay = null;
         Bay mostSuitableParkingBay = null;
-        int minSizeDifference = 9999;
-        int minSizeDifferencePB = 9999;
-        int sizeDifference = 9999;
+        int minSizeDifference = 3333;
+        int minSizeDifferencePB = 3333;
+        int sizeDifference;
         
         for(Bay b : SuitableBays)
         {
@@ -254,7 +254,6 @@ public class ARC {
         {
             SuitableBays.clear();
             Planes.add(p);
-            SuitableBays.clear();
             notifyOfPlaneLanding(p);            
             findNewBay(p);
             return true;

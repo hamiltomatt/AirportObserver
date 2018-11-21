@@ -35,9 +35,9 @@ public class CleaningVehicle extends Vehicle {
     @Override
     public void callVehicle(Bay b, VehicleType vT) 
     {
-        if(this.getIsAvailable())
+        if(vT.equals(VehicleType.CLEANING))
         {
-            if(vT.equals(VehicleType.CLEANING))
+            if(this.getIsAvailable())
             {
                 this.assignVehicleToJob(b);
             }

@@ -35,9 +35,9 @@ public class RampVehicle extends Vehicle {
     @Override
     public void callVehicle(Bay b, VehicleType vT) 
     {
-        if(this.getIsAvailable())
+        if(vT.equals(VehicleType.RAMP))
         {
-            if(vT.equals(VehicleType.RAMP))
+            if(this.getIsAvailable())
             {
                 this.assignVehicleToJob(b);
             }
