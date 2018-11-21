@@ -52,7 +52,7 @@ public abstract class Vehicle extends Location {
      * Vehicle has been assigned job at given location. The program now goes
      * through each process, travelling from vehicle store, to location
      * to do job, and then successfully return to vehicle store.
-     * @param l Location where job is located
+     * @param b Bay where job is located
      * @return If job was successful
      */
     public boolean assignVehicleToJob(Bay b)

@@ -76,7 +76,6 @@ public class Plane {
      */
     public boolean planeLanding(ARC a)
     {
-        System.out.println("Plane id " + id + " now landing");
         return a.planeLanded(this);
     }
     
