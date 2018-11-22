@@ -217,6 +217,11 @@ public class ARC {
         }
     }
     
+    /**
+     * Notify each Bay object in PlaneWatchers list of a bay change needed for
+     * a given plane.
+     * @param p Plane to be given new bay
+     */
     public void notifyOfPlaneBayChange(Plane p)
     {
         for(PlaneWatcher s : PlaneWatchers)
